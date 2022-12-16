@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.Device;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Gyro : MonoBehaviour
 {
 
-    Transform m_transform;
 
     Quaternion currentGyro;
 
@@ -25,7 +23,6 @@ public class Gyro : MonoBehaviour
         cart = GameObject.Find("DollyCart").GetComponent<Cinemachine.CinemachineDollyCart>();
         Input.gyro.enabled = true;
         gyroText = GameObject.Find("GyroText").GetComponent<Text>();
-        m_transform = this.transform;
         if (!cart) return;
         cart.m_Speed = CameraRayCast.railSpeed;
     }
@@ -36,7 +33,7 @@ public class Gyro : MonoBehaviour
         Quaternion gyro = Input.gyro.attitude;
         gyroText.text = $"enabled: {Input.gyro.enabled} attitude: {Input.gyro.attitude}";
 
-        m_transform.localRotation =
+        transform.localRotation =
             _BASE_ROTATION * (new Quaternion(-gyro.x, -gyro.y, gyro.z, gyro.w));
 
         if (Input.GetMouseButtonDown(1))
